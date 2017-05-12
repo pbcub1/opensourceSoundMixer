@@ -40,7 +40,7 @@
 				<div class="col-md-1"></div>
 				<div class="col-md-10">
 					<div class="selector">
-						<button class="btn btn-info active" type="button" id="import-btn" name="import">Import</button>
+						<button class="btn btn-info" type="button" id="import-btn" name="import">Import</button>
 						<button class="btn btn-info" type="button" id="upload-btn" name="upload">Upload</button>
 					</div>
 				</div>
@@ -54,7 +54,7 @@
 							<div class="col-lg-12">
 								<div class="form-group">
 									<label for="url">Paste URL for video or audio file</label>
-									<input type="text" class="form-control" id="url" name="url" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" autofocus required>
+									<input type="text" class="form-control" id="url" name="url" placeholder="Paste URL here" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" autofocus required>
 								</div>
 							</div>
 						</div>
@@ -86,10 +86,13 @@
 										</div>
 										<div class="col-md-4"></div>
 									</div>
-
+								</div>
 							</div>
 						</div>
-
+						<button class="btn btn-success btn-submit" type="submit" name="button">Import</button>
+					</form>
+					<form id="fileUpload" action="#" method="post">
+						<p>Just making sure this form is visible.</p>
 					</form>
 				</div>
 				<div class="col-md-1"></div>
