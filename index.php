@@ -14,13 +14,86 @@
 	</head>
 	<body>
 		<!--Main navigational navbar-->
-		<div class="navbar navbar-default">
-
-		</div>
+		<nav class="navbar navbar-default">
+			<div class="container">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-nav" aria-expanded="false">
+				        <span class="sr-only">Toggle navigation</span>
+				        <span class="icon-bar"></span>
+				        <span class="icon-bar"></span>
+				        <span class="icon-bar"></span>
+			      	</button>
+					<a href="#" class="navbar-brand">Sound App</a>
+				</div>
+				<div class="collapse navbar-collapse" id="main-nav">
+					<ul class="nav navbar-nav">
+						<li><a href="#">Our Company</a></li>
+						<li><a href="#">Our Products</a></li>
+					</ul>
+				</div>
+			</div>
+		</nav>
 
 		<!--Body-->
 		<div class="container">
+			<div class="row">
+				<div class="col-md-1"></div>
+				<div class="col-md-10">
+					<div class="selector">
+						<button class="btn btn-info active" type="button" id="import-btn" name="import">Import</button>
+						<button class="btn btn-info" type="button" id="upload-btn" name="upload">Upload</button>
+					</div>
+				</div>
+				<div class="col-md-1"></div>
+			</div>
+			<div class="row">
+				<div class="col-md-1"></div>
+				<div class="col-md-10">
+					<form id="videoURL" action="#" method="post">
+						<div class="row">
+							<div class="col-lg-12">
+								<div class="form-group">
+									<label for="url">Paste URL for video or audio file</label>
+									<input type="text" class="form-control" id="url" name="url" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" autofocus required>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6 cluster-items">
+								<div class="form-group">
+									<div class="row">
+										<div class="col-md-4"></div>
+										<div class="col-md-1">
+											<input type="radio" class="form-control sm-radio" id="video" name="file_type" value="video">
+										</div>
+										<div class="col-md-3">
+											<label for="video" class="text-center">Video</label>
+										</div>
+										<div class="col-md-4"></div>
+									</div>
 
+								</div>
+							</div>
+							<div class="col-md-6 cluster-items">
+								<div class="form-group">
+									<div class="row">
+										<div class="col-md-4"></div>
+										<div class="col-md-1">
+											<input type="radio" class="form-control sm-radio" id="audio" name="file_type" value="audio">
+										</div>
+										<div class="col-md-3">
+											<label for="audio" class="text-center">Audio</label>
+										</div>
+										<div class="col-md-4"></div>
+									</div>
+
+							</div>
+						</div>
+
+					</form>
+				</div>
+				<div class="col-md-1"></div>
+			</div>
 		</div>
 
 		<!--Footer navbar-->
@@ -29,7 +102,7 @@
 		</div>
 
 		<!--Scripts-->
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+		<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 		<script type="text/javascript" src="src/cli/app.js"></script>
 	</body>
