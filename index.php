@@ -49,7 +49,7 @@
 			<div class="row">
 				<div class="col-md-1"></div>
 				<div class="col-md-10">
-					<form id="videoURL" action="#" method="post">
+					<form id="videoURL" class="fileForm" action="#" method="post">
 						<div class="row">
 							<div class="col-lg-12">
 								<div class="form-group">
@@ -89,10 +89,15 @@
 								</div>
 							</div>
 						</div>
-						<button class="btn btn-success btn-submit" type="submit" name="button">Import</button>
+						<button class="btn btn-success btn-submit" type="button" name="button">Import</button>
 					</form>
-					<form id="fileUpload" action="#" method="post">
-						<p>Just making sure this form is visible.</p>
+					<form id="fileUpload" class="fileForm" action="#" method="post">
+						<div class="form-group">
+							<label for="fileInput">Choose your audio or video file</label>
+							<input type="file" id="fileInput" name="file" value="">
+
+						</div>
+						<button class="btn btn-success btn-submit" type="button" name="button">Upload</button>
 					</form>
 				</div>
 				<div class="col-md-1"></div>
