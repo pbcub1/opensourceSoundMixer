@@ -12,6 +12,7 @@ $(document).ready(function(){
 	var readImportData = function(){
 		var url = $("#url").val();
 		var selectedMode;
+		var verifiedURL = false;
 
 		//Check to make sure a radio button is selected.
 		if($('#audio').is(":checked")){
@@ -21,6 +22,9 @@ $(document).ready(function(){
 		}else {
 			console.error("Nothing is checked in import form.")
 		}
+
+		//Check to make sure the url given is a valid link
+		//TODO: Check to make sure given URL is valid
 
 		//Check to make sure there is something in URL
 		if( url != null ){
