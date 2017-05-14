@@ -62,14 +62,14 @@
 							<div class="col-md-6 cluster-items">
 								<div class="form-group">
 									<div class="row">
-										<div class="col-md-4"></div>
-										<div class="col-md-1">
-											<input type="radio" class="form-control sm-radio" id="video" name="file_type" value="video">
+										<div class="col-sm-4"></div>
+										<div class="col-sm-1">
+											<input type="radio" class="form-control sm-radio" id="video" name="file_type" value="video" disabled>
 										</div>
-										<div class="col-md-3">
+										<div class="col-sm-3">
 											<label for="video" class="text-center">Video</label>
 										</div>
-										<div class="col-md-4"></div>
+										<div class="col-sm-4"></div>
 									</div>
 
 								</div>
@@ -77,14 +77,14 @@
 							<div class="col-md-6 cluster-items">
 								<div class="form-group">
 									<div class="row">
-										<div class="col-md-4"></div>
-										<div class="col-md-1">
+										<div class="col-sm-4"></div>
+										<div class="col-sm-1">
 											<input type="radio" class="form-control sm-radio" id="audio" name="file_type" value="audio">
 										</div>
-										<div class="col-md-3">
+										<div class="col-sm-3">
 											<label for="audio" class="text-center">Audio</label>
 										</div>
-										<div class="col-md-4"></div>
+										<div class="col-sm-4"></div>
 									</div>
 								</div>
 							</div>
@@ -102,11 +102,28 @@
 				</div>
 				<div class="col-md-1"></div>
 			</div>
+
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th>Track ID</th>
+						<th>Track URL</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td><input class="form-control" type="text" name="track-1" value="track-1"></td>
+						<td class="inactive" id="track1-URL">Nothing Yet - Import or upload file</td>
+					</tr>
+				</tbody>
+			</table>
 		</div>
 
 		<!--Footer navbar-->
-		<div class="navbar navbar-default">
-
+		<div class="navbar navbar-default navbar-fixed-bottom">
+			<div class="container">
+				<p>Copyright 2017 &copy; Your Company Here</p>
+			</div>
 		</div>
 
 		<!--Scripts-->
