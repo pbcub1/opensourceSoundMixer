@@ -49,7 +49,7 @@
 			<div class="row">
 				<div class="col-md-1"></div>
 				<div class="col-md-10">
-					<form id="videoURL" class="fileForm" action="#" method="post">
+					<form id="videoURL" class="fileForm" method="none">
 						<div class="row">
 							<div class="col-lg-12">
 								<div class="form-group">
@@ -62,14 +62,14 @@
 							<div class="col-md-6 cluster-items">
 								<div class="form-group">
 									<div class="row">
-										<div class="col-sm-4"></div>
-										<div class="col-sm-1">
+										<div class="col-xs-4"></div>
+										<div class="col-xs-1">
 											<input type="radio" class="form-control sm-radio" id="video" name="file_type" value="video" disabled>
 										</div>
 										<div class="col-sm-3">
 											<label for="video" class="text-center">Video</label>
 										</div>
-										<div class="col-sm-4"></div>
+										<div class="col-xs-4"></div>
 									</div>
 
 								</div>
@@ -77,19 +77,19 @@
 							<div class="col-md-6 cluster-items">
 								<div class="form-group">
 									<div class="row">
-										<div class="col-sm-4"></div>
-										<div class="col-sm-1">
-											<input type="radio" class="form-control sm-radio" id="audio" name="file_type" value="audio">
+										<div class="col-xs-4"></div>
+										<div class="col-xs-1">
+											<input type="radio" class="form-control sm-radio" id="audio" name="file_type" value="audio" checked>
 										</div>
-										<div class="col-sm-3">
+										<div class="col-xs-3">
 											<label for="audio" class="text-center">Audio</label>
 										</div>
-										<div class="col-sm-4"></div>
+										<div class="col-xs-4"></div>
 									</div>
 								</div>
 							</div>
 						</div>
-						<button class="btn btn-success btn-submit" type="button" name="button">Import</button>
+						<button class="btn btn-success btn-submit" type="button" id="import-submit" name="button">Import</button>
 					</form>
 					<form id="fileUpload" class="fileForm" action="#" method="post">
 						<div class="form-group">
@@ -97,7 +97,7 @@
 							<input type="file" id="fileInput" name="file" value="">
 
 						</div>
-						<button class="btn btn-success btn-submit" type="button" name="button">Upload</button>
+						<button class="btn btn-success btn-submit" type="button" id="upload-submit" name="button">Upload</button>
 					</form>
 				</div>
 				<div class="col-md-1"></div>
