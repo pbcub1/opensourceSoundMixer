@@ -49,7 +49,7 @@
 			<div class="row">
 				<div class="col-md-1"></div>
 				<div class="col-md-10">
-					<form id="videoURL" class="fileForm" method="none">
+					<form id="videoURL" class="fileForm dontSub">
 						<div class="row">
 							<div class="col-lg-12">
 								<div class="form-group">
@@ -103,7 +103,7 @@
 				<div class="col-md-1"></div>
 			</div>
 
-			<table class="table table-striped">
+			<table class="table table-striped table-track-manager">
 				<thead>
 					<tr>
 						<th>Track ID</th>

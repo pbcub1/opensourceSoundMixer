@@ -9,6 +9,39 @@ $(document).ready(function(){
 		},],
 	}
 
+	var readImportData = function(){
+		var url = $("#url").val();
+		var selectedMode;
+
+		//Check to make sure a radio button is selected.
+		if($('#audio').is(":checked")){
+			selectedMode = 'audio';
+		}else if ($('#video').is(':checked')){
+			selectedMode = 'video';
+		}else {
+			console.error("Nothing is checked in import form.")
+		}
+
+		//Check to make sure there is something in URL
+		if( url != null ){
+			if(tracks.trackCount == 1 && tracks.track[0].url == null){
+				tracks.track[0].url = url;
+				$('#track1-URL').empty();
+				$('#track1-URL').append(url);
+			}else {
+				tracks.trackCount += 1;
+				tracks.track[ tracks.trackCount - 1 ] = {
+					name: "Track-" + tracks.trackCount,
+					url: url,
+					trackRef: "track" + tracks.trackCount
+				}
+
+				$('.table-track-manager tbody').append('<tr><td><input class="form-control" type="text" name="track-' + tracks.trackCount + '" value="' + tracks.track[tracks.trackCount - 1].name + '"></td><td class="inactive" id="track' + tracks.trackCount + '-URL">' + url + '</td></tr>');
+			}
+			$('#url').val('');
+		}
+	}
+
 	//Be sure everything is hidden to start
 	$("#videoURL").hide();
 	$("#fileUpload").hide();
@@ -87,28 +120,13 @@ $(document).ready(function(){
 	});
 
 	$("#import-submit").click(function(){
-		var url = $("#url").val();
-		var selectedMode;
+		readImportData();
+	});
 
-		//Check to make sure a radio button is selected.
-		if($('#audio').is(":checked")){
-			selectedMode = 'audio';
-		}else if ($('#video').is(':checked')){
-			selectedMode = 'video';
-		}else {
-			console.error("Nothing is checked in import form.")
-		}
-
-		//Check to make sure there is something in URL
-		if( url != null ){
-			if(tracks.trackCount == 1 && tracks.track[0].url == null){
-				tracks.track[0].url = url;
-				$('#track1-URL').empty();
-				$('#track1-URL').append(url);
-			}else {
-				tracks.trackCount += 1;
-			}
-			$('#url').val('');
+	$('#url').keypress(function(event){
+		if(event.which == 13){
+			event.preventDefault();
+			readImportData();
 		}
 	});
 });
