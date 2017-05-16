@@ -9,6 +9,18 @@ $(document).ready(function(){
 		},],
 	}
 
+	//Validates URL
+	//Reference: http://stackoverflow.com/questions/2838404/javascript-regex-url-matching
+	var ValidURL = function(str) {
+	  var pattern = new RegExp('^(https?:\\/\\/)?'+ // protocol
+	  '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.?)+[a-z]{2,}|'+ // domain name
+	  '((\\d{1,3}\\.){3}\\d{1,3}))'+ // OR ip (v4) address
+	  '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // port and path
+	  '(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
+	  '(\\#[-a-z\\d_]*)?$','i'); // fragment locator
+	  return pattern.test(str);
+	}
+
 	var readImportData = function(){
 		var url = $("#url").val();
 		var selectedMode;
@@ -24,10 +36,15 @@ $(document).ready(function(){
 		}
 
 		//Check to make sure the url given is a valid link
-		//TODO: Check to make sure given URL is valid
+		if(ValidURL(url)){
+			verifiedURL = true;
+		}else{
+			alert("Please enter a valid URL");
+			$('#url').val('');
+		}
 
 		//Check to make sure there is something in URL
-		if( url != null ){
+		if( url != null && verifiedURL){
 			if(tracks.trackCount == 1 && tracks.track[0].url == null){
 				tracks.track[0].url = url;
 				$('#track1-URL').empty();
@@ -35,7 +52,7 @@ $(document).ready(function(){
 			}else {
 				tracks.trackCount += 1;
 				tracks.track[ tracks.trackCount - 1 ] = {
-					name: "Track-" + tracks.trackCount,
+					name: "track-" + tracks.trackCount,
 					url: url,
 					trackRef: "track" + tracks.trackCount
 				}
