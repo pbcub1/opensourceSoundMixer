@@ -49,6 +49,7 @@
 			<div class="row">
 				<div class="col-md-1"></div>
 				<div class="col-md-10">
+					<p class="ex-padding-top">Currently only audio is supported. Audio file formats that are supported are .mp3, .ogg, and .wav.</p>
 					<form id="videoURL" class="fileForm dontSub">
 						<div class="row">
 							<div class="col-lg-12">
