@@ -11,14 +11,19 @@ $(document).ready(function(){
 
 	//Validates URL
 	//Reference: http://stackoverflow.com/questions/2838404/javascript-regex-url-matching
-	var ValidURL = function(str) {
+	var ValidURL = function(url) {
 	  var pattern = new RegExp('^(https?:\\/\\/)?'+ // protocol
 	  '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.?)+[a-z]{2,}|'+ // domain name
 	  '((\\d{1,3}\\.){3}\\d{1,3}))'+ // OR ip (v4) address
 	  '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // port and path
 	  '(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
 	  '(\\#[-a-z\\d_]*)?$','i'); // fragment locator
-	  return pattern.test(str);
+	  return pattern.test(url);
+	}
+
+	var ValidFileFormat = function(url){
+		var pattern = new RegExp('\.mp3|\.wav|\.ogg');
+		return pattern.test(url);
 	}
 
 	var readImportData = function(){
@@ -35,16 +40,8 @@ $(document).ready(function(){
 			console.error("Nothing is checked in import form.")
 		}
 
-		//Check to make sure the url given is a valid link
-		if(ValidURL(url)){
-			verifiedURL = true;
-		}else{
-			alert("Please enter a valid URL");
-			$('#url').val('');
-		}
-
 		//Check to make sure there is something in URL
-		if( url != null && verifiedURL){
+		if( url != null && ValidURL(url) && ValidFileFormat(url)){
 			if(tracks.trackCount == 1 && tracks.track[0].url == null){
 				tracks.track[0].url = url;
 				$('#track1-URL').empty();
@@ -59,6 +56,9 @@ $(document).ready(function(){
 
 				$('.table-track-manager tbody').append('<tr><td><input class="form-control" type="text" name="track-' + tracks.trackCount + '" value="' + tracks.track[tracks.trackCount - 1].name + '"></td><td class="inactive" id="track' + tracks.trackCount + '-URL">' + url + '</td></tr>');
 			}
+			$('#url').val('');
+		}else{
+			alert("Please enter a valid URL with a valid file format.");
 			$('#url').val('');
 		}
 	}
