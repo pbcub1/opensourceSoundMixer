@@ -121,6 +121,24 @@
 					</tr>
 				</tbody>
 			</table>
+			<table class="table table-striped table-track-manager">
+				<thead>
+					<tr>
+						<th>Track ID</th>
+						<th>Track Volume</th>
+						<th>Track Panning</th>
+						<th>Track Detune</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr class="track1-controller">
+						<td class="track-name"><i class="fa fa-play fa-inverse" aria-hidden="true"></i> track-1</td>
+						<td class="track-volume"><input type="range" id="track1-volume" max="100" min="0" value="100"></td>
+						<td class="track-panning"></td>
+						<td class="track-detune"></td>
+					</tr>
+				</tbody>
+			</table>
 			<div class="audio-player centered">
 				<i class="fa fa-play fa-3x" id="play-btn" aria-hidden="true"></i><i class="fa fa-pause fa-3x" id="pause-btn" aria-hidden="true"></i><i class="fa fa-stop fa-3x" id="stop-btn" aria-hidden="true"></i><i class="fa fa-random fa-3x" id="random-btn" aria-hidden="true"></i>
 			</div>
