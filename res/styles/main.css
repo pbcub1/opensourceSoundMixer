@@ -33,3 +33,33 @@ body {
 .inactive {
 	color: #aaaaaa;
 }
+
+@keyframes controlsHover {
+	from{color: #545556;}
+	to{color:#5cb85c;}
+}
+
+@keyframes controlsHover-x {
+	from{color: #5cb85c;}
+	to{color:#545556;}
+}
+
+.audio-player *:not(.active) {
+	margin-right: 15px;
+	animation-name: controlsHover-x;
+	animation-duration: 1s;
+	animation-timing-function: ease-in-out;
+	color: #545556;
+}
+
+.audio-player *:not(.active):hover {
+	animation-name: controlsHover;
+	animation-duration: 1s;
+	animation-timing-function: ease-in-out;
+	color: #5cb85c;
+}
+
+.audio-player .active {
+	margin-right: 15px;
+	color: #5cb85c;
+}

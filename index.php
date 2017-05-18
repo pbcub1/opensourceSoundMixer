@@ -9,7 +9,9 @@
 		<meta name="keywords" content="">
 
 		<!--Styles-->
+
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 		<link rel="stylesheet" href="res/styles/main.css">
 	</head>
 	<body>
@@ -118,6 +120,9 @@
 					</tr>
 				</tbody>
 			</table>
+			<div class="audio-player">
+				<i class="fa fa-play fa-3x" id="play-btn" aria-hidden="true"></i><i class="fa fa-pause fa-3x" id="pause-btn" aria-hidden="true"></i><i class="fa fa-stop fa-3x" id="stop-btn" aria-hidden="true"></i><i class="fa fa-random fa-3x" id="random-btn" aria-hidden="true"></i>
+			</div>
 		</div>
 
 		<!--Footer navbar-->
