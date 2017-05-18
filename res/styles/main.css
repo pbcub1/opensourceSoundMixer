@@ -2,6 +2,10 @@ body {
 	padding-bottom: 70px;
 }
 
+.centered {
+	margin: auto;
+}
+
 .ex-padding-top {
 	margin-top: 15px;
 	padding-bottom: 0px;
@@ -42,6 +46,10 @@ body {
 @keyframes controlsHover-x {
 	from{color: #5cb85c;}
 	to{color:#545556;}
+}
+
+.audio-player {
+	width: 210px;
 }
 
 .audio-player *:not(.active) {

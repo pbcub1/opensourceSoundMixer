@@ -3,7 +3,7 @@ $(document).ready(function(){
 	var tracks = {
 		trackCount: 1,
 		track: [{
-			name: 'Track-1',
+			name: 'track-1',
 			url: null,
 			trackRef: 'track1'
 		},],
@@ -54,7 +54,7 @@ $(document).ready(function(){
 					trackRef: "track" + tracks.trackCount
 				}
 
-				$('.table-track-manager tbody').append('<tr><td><input class="form-control" type="text" name="track-' + tracks.trackCount + '" value="' + tracks.track[tracks.trackCount - 1].name + '"></td><td class="inactive" id="track' + tracks.trackCount + '-URL">' + url + '</td></tr>');
+				$('.table-track-manager tbody').append('<tr><td><input class="form-control" type="text" name="' + tracks.track[ tracks.trackCount - 1 ].name + '" value="' + tracks.track[tracks.trackCount - 1].name + '"></td><td class="inactive" id="track' + tracks.trackCount + '-URL">' + url + '</td></tr>');
 			}
 			$('#url').val('');
 		}else{

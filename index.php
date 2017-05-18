@@ -7,6 +7,7 @@
 		<meta name="description" content="">
 		<meta name="author" content="">
 		<meta name="keywords" content="">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
 
 		<!--Styles-->
 
@@ -120,7 +121,7 @@
 					</tr>
 				</tbody>
 			</table>
-			<div class="audio-player">
+			<div class="audio-player centered">
 				<i class="fa fa-play fa-3x" id="play-btn" aria-hidden="true"></i><i class="fa fa-pause fa-3x" id="pause-btn" aria-hidden="true"></i><i class="fa fa-stop fa-3x" id="stop-btn" aria-hidden="true"></i><i class="fa fa-random fa-3x" id="random-btn" aria-hidden="true"></i>
 			</div>
 		</div>
