@@ -100,7 +100,7 @@ $(document).ready(function(){
 	    if (file.size > 10000000 || (file.type != "audio/mp3" && file.type != "audio/wav" && file.type != "audio/ogg")) {
 	        alert('Max upload size is 10MB and must be of type mp3, wav, or ogg.');
 	    }else{
-		    $.ajax({
+			$.ajax({
 		        // Your server script to process the upload
 		        url: 'src/svr/upload.php',
 		        type: 'POST',
@@ -111,7 +111,7 @@ $(document).ready(function(){
 		        // Tell jQuery not to process data or worry about content-type
 		        // You *must* include these options!
 		        cache: false,
-		        contentType: "multipart/form-data",
+		        contentType: false,
 		        processData: false,
 
 		        // Custom XMLHttpRequest
