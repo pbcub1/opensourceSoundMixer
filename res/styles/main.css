@@ -2,6 +2,16 @@ body {
 	padding-bottom: 70px;
 }
 
+.centered {
+	margin: auto;
+}
+
+.ex-padding-top {
+	margin-top: 15px;
+	padding-bottom: 0px;
+	margin-bottom: 0px;
+}
+
 .navbar-fixed-bottom > .container > p {
 	padding-top: 13px;
 }
@@ -26,4 +36,67 @@ body {
 
 .inactive {
 	color: #aaaaaa;
+}
+
+@keyframes controlsHover {
+	from{color: #545556;}
+	to{color:#5cb85c;}
+}
+
+@keyframes controlsHover-x {
+	from{color: #5cb85c;}
+	to{color:#545556;}
+}
+
+.audio-player {
+	width: 210px;
+}
+
+.audio-player *:not(.active) {
+	margin-right: 15px;
+	animation-name: controlsHover-x;
+	animation-duration: 1s;
+	animation-timing-function: ease-in-out;
+	color: #545556;
+}
+
+.audio-player *:not(.active):hover {
+	animation-name: controlsHover;
+	animation-duration: 1s;
+	animation-timing-function: ease-in-out;
+	color: #5cb85c;
+}
+
+.audio-player .active {
+	margin-right: 15px;
+	color: #5cb85c;
+}
+
+@keyframes trackControlsHover {
+	from {color:#FFFFFF;}
+	to {color:#5cb85c;}
+}
+
+@keyframes trackControlsHover-x {
+	from {color:#5cb85c;}
+	to {color:#FFFFFF;}
+}
+
+#track-play .fa-play {
+	color: #FFFFFF;
+	animation-name: trackControlsHover-x;
+	animation-duration: 1s;
+	animation-timing-function: ease-in-out;
+}
+
+#track-play .fa-play:hover {
+	animation-name: trackControlsHover;
+	animation-duration: 1s;
+	animation-timing-function: ease-in-out;
+	color: #5cb85c;
+}
+
+#download-wrapper {
+	margin-top:15px;
+	width: 115px;
 }

@@ -7,9 +7,12 @@
 		<meta name="description" content="">
 		<meta name="author" content="">
 		<meta name="keywords" content="">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
 
 		<!--Styles-->
+
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 		<link rel="stylesheet" href="res/styles/main.css">
 	</head>
 	<body>
@@ -49,6 +52,7 @@
 			<div class="row">
 				<div class="col-md-1"></div>
 				<div class="col-md-10">
+					<p class="ex-padding-top">Currently only audio is supported. Audio file formats that are supported are .mp3, .ogg, and .wav.</p>
 					<form id="videoURL" class="fileForm dontSub">
 						<div class="row">
 							<div class="col-lg-12">
@@ -91,7 +95,7 @@
 						</div>
 						<button class="btn btn-success btn-submit" type="button" id="import-submit" name="button">Import</button>
 					</form>
-					<form id="fileUpload" class="fileForm" action="#" method="post">
+					<form id="fileUpload" class="fileForm" action="#" method="post" enctype="multipart/form-data">
 						<div class="form-group">
 							<label for="fileInput">Choose your audio or video file</label>
 							<input type="file" id="fileInput" name="file" value="">
@@ -117,6 +121,31 @@
 					</tr>
 				</tbody>
 			</table>
+			<table class="table table-striped table-track-manager">
+				<thead>
+					<tr>
+						<th>Track ID</th>
+						<th>Track Volume</th>
+						<th>Track Panning</th>
+						<th>Track Detune</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr class="track1-controller">
+						<td class="track-name"><span class="fa-stack" id="track-play"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-play fa-inverse fa-stack-1x" aria-hidden="true"></i></span> track-1</td>
+						<td class="track-volume"><input type="range" id="track1-volume" max="100" min="0" value="100"></td>
+						<td class="track-panning"><input type="range" id="track1-panning" max="100" min="0" value="50"></td>
+						<td class="track-detune"><input type="range" id="track1-volume" max="100" min="0" value="50"></td>
+					</tr>
+				</tbody>
+			</table>
+			<div class="audio-player centered">
+				<i class="fa fa-play fa-3x" id="play-btn" aria-hidden="true"></i><i class="fa fa-pause fa-3x" id="pause-btn" aria-hidden="true"></i><i class="fa fa-stop fa-3x" id="stop-btn" aria-hidden="true"></i><i class="fa fa-random fa-3x" id="random-btn" aria-hidden="true"></i>
+			</div>
+			<div class="wrapper centered" id="download-wrapper">
+				<button class="btn btn-success btn-lg centered" id="download">Download</button>
+			</div>
+
 		</div>
 
 		<!--Footer navbar-->
