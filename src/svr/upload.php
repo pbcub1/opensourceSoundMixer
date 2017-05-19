@@ -1,4 +1,8 @@
 <?php
+session_start();
+if(!isset($_SESSION['fileMger'])){
+	$_SESSION['fileMger'] = array();
+}
 
 function rndJesus(){
 	$rnd = rand(10, 999999999999999);
@@ -38,9 +42,9 @@ if ($uploadOk == 0) {
 } else {
     if (move_uploaded_file($_FILES["file"]["tmp_name"], $target_file)) {
 		$jsonReturn = $jsonReturn . 'error: false, ';
-		$jsonReturn = $jsonReturn . 'url: ' . '"uploads/' . $target_file . '", ';
+		$jsonReturn = $jsonReturn . 'url: ' . '"uploads/' . $extention . '.' . $fileType . '", ';
 		$jsonReturn = $jsonReturn . 'success: true ';
-
+		$_SESSION['fileMger'][count($_SESSION['fileMger'])] = $extention . '.' . $fileType;
     } else {
 		$jsonReturn = $jsonReturn . 'error-moving: true, ';
 		$jsonReturn = $jsonReturn . 'error: true ';

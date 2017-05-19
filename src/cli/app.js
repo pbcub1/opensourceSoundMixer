@@ -1,4 +1,11 @@
 $(document).ready(function(){
+	//Cleans up server
+	$( window ).on('unload', function(){
+		$.ajax({
+			url: 'src/svr/resmger.php',
+			type: 'post'
+		});
+	});
 	//Track tracker
 	var tracks = {
 		trackCount: 1,
