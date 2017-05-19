@@ -91,7 +91,7 @@ $(document).ready(function(){
 			$("#import-btn").addClass("active");
 		}
 	});
-	
+
 	//TODO: Check Ajax return request to save URL for audio processing.
 	//TODO: Add function to add url to table
 	//Simple File Uploader from http://stackoverflow.com/questions/166221/how-can-i-upload-files-asynchronously
@@ -102,16 +102,16 @@ $(document).ready(function(){
 	    }else{
 		    $.ajax({
 		        // Your server script to process the upload
-		        url: 'upload.php',
+		        url: 'src/svr/upload.php',
 		        type: 'POST',
 
 		        // Form data
-		        data: new FormData($('#fileForm')[0]),
+		        data: new FormData($('#fileUpload')[0]),
 
 		        // Tell jQuery not to process data or worry about content-type
 		        // You *must* include these options!
 		        cache: false,
-		        contentType: false,
+		        contentType: "multipart/form-data",
 		        processData: false,
 
 		        // Custom XMLHttpRequest
@@ -130,6 +130,10 @@ $(document).ready(function(){
 		            }
 		            return myXhr;
 		        },
+
+				complete: function( xhr, status){
+					console.log(xhr.responseText);
+				}
 		    });
 		}
 	});
