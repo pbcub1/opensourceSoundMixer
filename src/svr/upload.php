@@ -9,7 +9,7 @@ function rndJesus(){
 }
 
 //Reference and code from https://www.w3schools.com/php/php_file_upload.asp
-$target_dir = "uploads";
+$target_dir = "../../uploads";
 $extention = rndJesus();
 $uploadOk = 1;
 $uploadName = basename($_FILES["file"]["name"]);
@@ -38,7 +38,7 @@ if ($uploadOk == 0) {
 } else {
     if (move_uploaded_file($_FILES["file"]["tmp_name"], $target_file)) {
 		$jsonReturn = $jsonReturn . 'error: false, ';
-		$jsonReturn = $jsonReturn . 'url: ' . '"http://localhost/src/svr/' . $target_file . '", ';
+		$jsonReturn = $jsonReturn . 'url: ' . '"uploads/' . $target_file . '", ';
 		$jsonReturn = $jsonReturn . 'success: true ';
 
     } else {
