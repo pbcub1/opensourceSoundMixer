@@ -91,53 +91,47 @@ $(document).ready(function(){
 			$("#import-btn").addClass("active");
 		}
 	});
-
-	//Simple File Uploader from http://stackoverflow.com/questions/166221/how-can-i-upload-files-asynchronously
-	//TODO: Change Size
-	//TODO: Check type to make sure it's in proper format
-	$(':file').on('change', function() {
-	    var file = this.files[0];
-	    if (file.size > 1024) {
-	        alert('max upload size is 1k')
-	    }
-
-	    // Also see .name, .type
-	});
-
+	
 	//TODO: Check Ajax return request to save URL for audio processing.
 	//TODO: Add function to add url to table
+	//Simple File Uploader from http://stackoverflow.com/questions/166221/how-can-i-upload-files-asynchronously
 	$('#upload-submit').click(function() {
-	    $.ajax({
-	        // Your server script to process the upload
-	        url: 'upload.php',
-	        type: 'POST',
+		var file = $("#fileInput").prop('files')[0];
+	    if (file.size > 10000000 || (file.type != "audio/mp3" && file.type != "audio/wav" && file.type != "audio/ogg")) {
+	        alert('Max upload size is 10MB and must be of type mp3, wav, or ogg.');
+	    }else{
+		    $.ajax({
+		        // Your server script to process the upload
+		        url: 'upload.php',
+		        type: 'POST',
 
-	        // Form data
-	        data: new FormData($('#fileForm')[0]),
+		        // Form data
+		        data: new FormData($('#fileForm')[0]),
 
-	        // Tell jQuery not to process data or worry about content-type
-	        // You *must* include these options!
-	        cache: false,
-	        contentType: false,
-	        processData: false,
+		        // Tell jQuery not to process data or worry about content-type
+		        // You *must* include these options!
+		        cache: false,
+		        contentType: false,
+		        processData: false,
 
-	        // Custom XMLHttpRequest
-	        xhr: function() {
-	            var myXhr = $.ajaxSettings.xhr();
-	            if (myXhr.upload) {
-	                // For handling the progress of the upload
-	                myXhr.upload.addEventListener('progress', function(e) {
-	                    if (e.lengthComputable) {
-	                        $('progress').attr({
-	                            value: e.loaded,
-	                            max: e.total,
-	                        });
-	                    }
-	                } , false);
-	            }
-	            return myXhr;
-	        },
-	    });
+		        // Custom XMLHttpRequest
+		        xhr: function() {
+		            var myXhr = $.ajaxSettings.xhr();
+		            if (myXhr.upload) {
+		                // For handling the progress of the upload
+		                myXhr.upload.addEventListener('progress', function(e) {
+		                    if (e.lengthComputable) {
+		                        $('progress').attr({
+		                            value: e.loaded,
+		                            max: e.total,
+		                        });
+		                    }
+		                } , false);
+		            }
+		            return myXhr;
+		        },
+		    });
+		}
 	});
 
 	$("#import-submit").click(function(){
