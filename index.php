@@ -95,7 +95,7 @@
 						</div>
 						<button class="btn btn-success btn-submit" type="button" id="import-submit" name="button">Import</button>
 					</form>
-					<form id="fileUpload" class="fileForm" action="#" method="post">
+					<form id="fileUpload" class="fileForm" action="#" method="post" enctype="multipart/form-data">
 						<div class="form-group">
 							<label for="fileInput">Choose your audio or video file</label>
 							<input type="file" id="fileInput" name="file" value="">
@@ -142,6 +142,10 @@
 			<div class="audio-player centered">
 				<i class="fa fa-play fa-3x" id="play-btn" aria-hidden="true"></i><i class="fa fa-pause fa-3x" id="pause-btn" aria-hidden="true"></i><i class="fa fa-stop fa-3x" id="stop-btn" aria-hidden="true"></i><i class="fa fa-random fa-3x" id="random-btn" aria-hidden="true"></i>
 			</div>
+			<div class="wrapper centered" id="download-wrapper">
+				<button class="btn btn-success btn-lg centered" id="download">Download</button>
+			</div>
+
 		</div>
 
 		<!--Footer navbar-->

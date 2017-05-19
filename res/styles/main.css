@@ -95,3 +95,8 @@ body {
 	animation-timing-function: ease-in-out;
 	color: #5cb85c;
 }
+
+#download-wrapper {
+	margin-top:15px;
+	width: 115px;
+}
