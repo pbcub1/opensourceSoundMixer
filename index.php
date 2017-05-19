@@ -132,10 +132,10 @@
 				</thead>
 				<tbody>
 					<tr class="track1-controller">
-						<td class="track-name"><i class="fa fa-play fa-inverse" aria-hidden="true"></i> track-1</td>
+						<td class="track-name"><span class="fa-stack" id="track-play"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-play fa-inverse fa-stack-1x" aria-hidden="true"></i></span> track-1</td>
 						<td class="track-volume"><input type="range" id="track1-volume" max="100" min="0" value="100"></td>
-						<td class="track-panning"></td>
-						<td class="track-detune"></td>
+						<td class="track-panning"><input type="range" id="track1-panning" max="100" min="0" value="50"></td>
+						<td class="track-detune"><input type="range" id="track1-volume" max="100" min="0" value="50"></td>
 					</tr>
 				</tbody>
 			</table>

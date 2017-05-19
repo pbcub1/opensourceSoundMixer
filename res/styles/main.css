@@ -71,3 +71,27 @@ body {
 	margin-right: 15px;
 	color: #5cb85c;
 }
+
+@keyframes trackControlsHover {
+	from {color:#FFFFFF;}
+	to {color:#5cb85c;}
+}
+
+@keyframes trackControlsHover-x {
+	from {color:#5cb85c;}
+	to {color:#FFFFFF;}
+}
+
+#track-play .fa-play {
+	color: #FFFFFF;
+	animation-name: trackControlsHover-x;
+	animation-duration: 1s;
+	animation-timing-function: ease-in-out;
+}
+
+#track-play .fa-play:hover {
+	animation-name: trackControlsHover;
+	animation-duration: 1s;
+	animation-timing-function: ease-in-out;
+	color: #5cb85c;
+}
