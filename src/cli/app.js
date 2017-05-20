@@ -18,7 +18,7 @@ $(document).ready(function(){
 		getByRef: function( ref ){
 			for(i = 0; i < this.trackCount; i++){
 				if(this.track[i].trackRef == ref){
-					return this.track[i];
+					return i;
 				}
 			}
 		}
@@ -64,6 +64,7 @@ $(document).ready(function(){
 					volume: 1.0,
 					detune: 0,
 					panning: 0,
+					loop:false,
 					env: {
 						hold: 10000000
 					}
@@ -81,6 +82,7 @@ $(document).ready(function(){
 						volume: 1.0,
 						detune: 0,
 						panning: 0,
+						loop: false,
 						env: {
 							hold: 10000000
 						}
@@ -88,7 +90,7 @@ $(document).ready(function(){
 				};
 
 				$('.table-track-manager tbody').append('<tr><td><input class="form-control" type="text" name="' + tracks.track[ tracks.trackCount - 1 ].name + '" value="' + tracks.track[tracks.trackCount - 1].name + '"></td><td class="inactive" id="track' + tracks.trackCount + '-URL">' + tracks.track[tracks.trackCount - 1].url + '</td></tr>');
-				$('.table-track-controller tbody').append('<tr class="' + tracks.track[tracks.trackCount - 1].trackRef + '-controller"><td class="trackname"><span class="fa-stack play" id="' + tracks.track[tracks.trackCount - 1].trackRef + '-play"><i class="fa fa-circle fa-stack-2x" aria-hidden="true"></i><i class="fa fa-play fa-inverse fa-stack-1x" aria-hidden="true"></i></span> ' + tracks.track[tracks.trackCount - 1].name + '<td class="' + tracks.track[tracks.trackCount - 1].trackRef + '-volume"><input type="range" id="' + tracks.track[tracks.trackCount - 1].trackRef + '-volume" max="100" min="0" value="100"></td><td class="track-panning"><input type="range" id="' + tracks.track[tracks.trackCount - 1].trackRef + '-panning" max="100" min="0" value="50"></td><td class="track-detune"><input type="range" id="' + tracks.track[tracks.trackCount - 1].trackRef + '-detune" max="100" min="0" value="50"></td></td></tr>');
+				$('.table-track-controller tbody').append('<tr class="' + tracks.track[tracks.trackCount - 1].trackRef + '-controller"><td class="track-name"><span class="fa-stack play" id="' + tracks.track[tracks.trackCount - 1].trackRef + '-play"><i class="fa fa-circle fa-stack-2x" aria-hidden="true"></i><i class="fa fa-play fa-inverse fa-stack-1x" aria-hidden="true"></i></span> ' + tracks.track[tracks.trackCount - 1].name + '<td class="track-control ' + tracks.track[tracks.trackCount - 1].trackRef + '-volume"><input type="range" id="' + tracks.track[tracks.trackCount - 1].trackRef + '-volume" max="100" min="0" value="100"></td><td class="track-control track-panning"><input type="range" id="' + tracks.track[tracks.trackCount - 1].trackRef + '-panning" max="100" min="0" value="50"></td><td class="track-control track-detune"><input type="range" id="' + tracks.track[tracks.trackCount - 1].trackRef + '-detune" max="100" min="0" value="50"></td></td></tr>');
 			}
 			$('#url').val('');
 		}else{
@@ -174,11 +176,11 @@ $(document).ready(function(){
 								volume: 1.0,
 								detune: 0,
 								panning: 0,
+								loop: false,
 								env: {
 									hold: 10000000
 								}
 							});
-							console.log(tracks.track[0].obj);
 							$('#track1-URL').empty();
 							$('#track1-URL').append(response.url);
 						}else {
@@ -192,6 +194,7 @@ $(document).ready(function(){
 									volume: 1.0,
 									panning: 0,
 									detune: 0,
+									loop: false,
 									env: {
 										hold: 10000000
 									}
@@ -199,7 +202,7 @@ $(document).ready(function(){
 							}
 
 							$('.table-track-manager tbody').append('<tr><td><input class="form-control" type="text" name="' + tracks.track[ tracks.trackCount - 1 ].name + '" value="' + tracks.track[tracks.trackCount - 1].name + '"></td><td class="inactive" id="track' + tracks.trackCount + '-URL">' + response.url + '</td></tr>');
-							$('.table-track-controller tbody').append('<tr class="' + tracks.track[tracks.trackCount - 1].trackRef + '-controller"><td class="trackname"><span class="fa-stack play" id='+ tracks.track[tracks.trackCount - 1].trackRef +'-play"><i class="fa fa-circle fa-stack-2x" aria-hidden="true"></i><i class="fa fa-play fa-inverse fa-stack-1x" aria-hidden="true"></i></span> ' + tracks.track[tracks.trackCount - 1].name + '<td class="track-volume"><input type="range" id="' + tracks.track[tracks.trackCount - 1].trackRef + '-volume" max="100" min="0" value="100"></td><td class="track-panning"><input type="range" id="' + tracks.track[tracks.trackCount - 1].trackRef + '-panning" max="100" min="0" value="50"></td><td class="track-detune"><input type="range" id="' + tracks.track[tracks.trackCount - 1].trackRef + '-detune" max="100" min="0" value="50"></td></td></tr>');
+							$('.table-track-controller tbody').append('<tr class="' + tracks.track[tracks.trackCount - 1].trackRef + '-controller"><td class="track-name"><span class="fa-stack play" id='+ tracks.track[tracks.trackCount - 1].trackRef +'-play"><i class="fa fa-circle fa-stack-2x" aria-hidden="true"></i><i class="fa fa-play fa-inverse fa-stack-1x" aria-hidden="true"></i></span> ' + tracks.track[tracks.trackCount - 1].name + '<td class="track-control track-volume"><input type="range" id="' + tracks.track[tracks.trackCount - 1].trackRef + '-volume" max="100" min="0" value="100"></td><td class="track-control track-panning"><input type="range" id="' + tracks.track[tracks.trackCount - 1].trackRef + '-panning" max="100" min="0" value="50"></td><td class="track-control track-detune"><input type="range" id="' + tracks.track[tracks.trackCount - 1].trackRef + '-detune" max="100" min="0" value="50"></td></td></tr>');
 						}
 						$('#fileInput').val('');
 					}
@@ -236,16 +239,31 @@ $(document).ready(function(){
 
 	$('.play').click(function(){
 		var regexp = /track\d/;
-		var track = tracks.getByRef($(this).attr('id').match(regexp)[0]);
-		if(track.obj != null){
-			if($('#' + track.trackRef + '-play > .fa-play').hasClass('fa-play')){
-				$('#' + track.trackRef + '-play > .fa-play').removeClass('fa-play').addClass('fa-pause');
-				track.obj.play();
-				console.log(track.obj);
+		var trackNum = tracks.getByRef($(this).attr('id').match(regexp)[0]);
+		if(tracks.track[trackNum].obj != null){
+			if($('#' + tracks.track[trackNum].trackRef + '-play > .fa-play').hasClass('fa-play')){
+				$('#' + tracks.track[trackNum].trackRef + '-play > .fa-play').removeClass('fa-play').addClass('fa-pause');
+				tracks.track[trackNum].obj.play();
 			}else{
-				$('#' + track.trackRef + '-play > .fa-pause').removeClass('fa-pause').addClass('fa-play');
-				track.obj.stop();
+				$('#' + tracks.track[trackNum].trackRef + '-play > .fa-pause').removeClass('fa-pause').addClass('fa-play');
+				tracks.track[trackNum].obj.stop();
 			}
 		}
-	})
+	});
+
+	$('.track-control').on("change", function(){
+		var regexp = /track\d/;
+		var controlReg = /volume|panning|detune/;
+		var trackNum = tracks.getByRef($(this).children().attr('id').match(regexp));
+		var value = $('#' + $(this).children().attr('id')).val();
+		if( tracks.track[trackNum].obj != null){
+			if($(this).children().attr('id').match(controlReg) == "volume"){
+				tracks.track[trackNum].obj.setVolume(value/100);
+			}else if($(this).children().attr('id').match(controlReg) == "panning"){
+				tracks.track[trackNum].obj.setPanning((value-50)/50);
+			}else if($(this).children().attr('id').match(controlReg) == "detune"){
+				tracks.track[trackNum].obj.setDetune((value-50)*2);
+			}
+		}
+	});
 });
