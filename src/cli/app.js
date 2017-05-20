@@ -12,8 +12,16 @@ $(document).ready(function(){
 		track: [{
 			name: 'track-1',
 			url: null,
-			trackRef: 'track1'
+			trackRef: 'track1',
+			obj: null,
 		},],
+		getByRef: function( ref ){
+			for(i = 0; i < this.trackCount; i++){
+				if(this.track[i].trackRef == ref){
+					return this.track[i];
+				}
+			}
+		}
 	}
 
 	//Validates URL
@@ -51,6 +59,15 @@ $(document).ready(function(){
 		if( url != null && ValidURL(url) && ValidFileFormat(url)){
 			if(tracks.trackCount == 1 && tracks.track[0].url == null){
 				tracks.track[0].url = url;
+				tracks.track[0].obj = new Wad({
+					source: url,
+					volume: 1.0,
+					detune: 0,
+					panning: 0,
+					env: {
+						hold: 10000000
+					}
+				});
 				$('#track1-URL').empty();
 				$('#track1-URL').append(url);
 			}else {
@@ -58,11 +75,20 @@ $(document).ready(function(){
 				tracks.track[ tracks.trackCount - 1 ] = {
 					name: "track-" + tracks.trackCount,
 					url: url,
-					trackRef: "track" + tracks.trackCount
-				}
+					trackRef: "track" + tracks.trackCount,
+					obj: new Wad({
+						source: url,
+						volume: 1.0,
+						detune: 0,
+						panning: 0,
+						env: {
+							hold: 10000000
+						}
+					})
+				};
 
 				$('.table-track-manager tbody').append('<tr><td><input class="form-control" type="text" name="' + tracks.track[ tracks.trackCount - 1 ].name + '" value="' + tracks.track[tracks.trackCount - 1].name + '"></td><td class="inactive" id="track' + tracks.trackCount + '-URL">' + tracks.track[tracks.trackCount - 1].url + '</td></tr>');
-				$('.table-track-controller tbody').append('<tr class="' + tracks.track[tracks.trackCount - 1].trackRef + '-controller"><td class="trackname"><span class="fa-stack" id="track-play"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-play fa-inverse fa-stack-1x" aria-hidden="true"></i></span> ' + tracks.track[tracks.trackCount - 1].name + '<td class="track-volume"><input type="range" id="' + tracks.track[tracks.trackCount - 1].trackRef + '-volume" max="100" min="0" value="100"></td><td class="track-panning"><input type="range" id="' + tracks.track[tracks.trackCount - 1].trackRef + '-panning" max="100" min="0" value="50"></td><td class="track-detune"><input type="range" id="' + tracks.track[tracks.trackCount - 1].trackRef + '-detune" max="100" min="0" value="50"></td></td></tr>');
+				$('.table-track-controller tbody').append('<tr class="' + tracks.track[tracks.trackCount - 1].trackRef + '-controller"><td class="trackname"><span class="fa-stack play" id="' + tracks.track[tracks.trackCount - 1].trackRef + '-play"><i class="fa fa-circle fa-stack-2x" aria-hidden="true"></i><i class="fa fa-play fa-inverse fa-stack-1x" aria-hidden="true"></i></span> ' + tracks.track[tracks.trackCount - 1].name + '<td class="' + tracks.track[tracks.trackCount - 1].trackRef + '-volume"><input type="range" id="' + tracks.track[tracks.trackCount - 1].trackRef + '-volume" max="100" min="0" value="100"></td><td class="track-panning"><input type="range" id="' + tracks.track[tracks.trackCount - 1].trackRef + '-panning" max="100" min="0" value="50"></td><td class="track-detune"><input type="range" id="' + tracks.track[tracks.trackCount - 1].trackRef + '-detune" max="100" min="0" value="50"></td></td></tr>');
 			}
 			$('#url').val('');
 		}else{
@@ -100,13 +126,12 @@ $(document).ready(function(){
 		}
 	});
 
-	//TODO: Check Ajax return request to save URL for audio processing.
-	//TODO: Add function to add url to table
 	//Simple File Uploader from http://stackoverflow.com/questions/166221/how-can-i-upload-files-asynchronously
 	$('#upload-submit').click(function() {
 		var file = $("#fileInput").prop('files')[0];
-	    if (file.size > 10000000 || (file.type != "audio/mp3" && file.type != "audio/wav" && file.type != "audio/ogg")) {
+	    if (file.size > 10000000 || (file.type != "audio/mp3" && file.type != "audio/mpeg" && file.type != "audio/wav" && file.type != "audio/ogg")) {
 	        alert('Max upload size is 10MB and must be of type mp3, wav, or ogg.');
+			console.log(file.type + ' ' + file.size);
 	    }else{
 			$.ajax({
 		        // Your server script to process the upload
@@ -144,6 +169,16 @@ $(document).ready(function(){
 					if( response.error == false ){
 						if(tracks.trackCount == 1 && tracks.track[0].url == null){
 							tracks.track[0].url = response.url;
+							tracks.track[0].obj = new Wad({
+								source: response.url,
+								volume: 1.0,
+								detune: 0,
+								panning: 0,
+								env: {
+									hold: 10000000
+								}
+							});
+							console.log(tracks.track[0].obj);
 							$('#track1-URL').empty();
 							$('#track1-URL').append(response.url);
 						}else {
@@ -151,11 +186,20 @@ $(document).ready(function(){
 							tracks.track[ tracks.trackCount - 1 ] = {
 								name: "track-" + tracks.trackCount,
 								url: response.url,
-								trackRef: "track" + tracks.trackCount
+								trackRef: "track" + tracks.trackCount,
+								obj: new Wad({
+									source: response.url,
+									volume: 1.0,
+									panning: 0,
+									detune: 0,
+									env: {
+										hold: 10000000
+									}
+								})
 							}
 
 							$('.table-track-manager tbody').append('<tr><td><input class="form-control" type="text" name="' + tracks.track[ tracks.trackCount - 1 ].name + '" value="' + tracks.track[tracks.trackCount - 1].name + '"></td><td class="inactive" id="track' + tracks.trackCount + '-URL">' + response.url + '</td></tr>');
-							$('.table-track-controller tbody').append('<tr class="' + tracks.track[tracks.trackCount - 1].trackRef + '-controller"><td class="trackname"><span class="fa-stack" id="track-play"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-play fa-inverse fa-stack-1x" aria-hidden="true"></i></span> ' + tracks.track[tracks.trackCount - 1].name + '<td class="track-volume"><input type="range" id="' + tracks.track[tracks.trackCount - 1].trackRef + '-volume" max="100" min="0" value="100"></td><td class="track-panning"><input type="range" id="' + tracks.track[tracks.trackCount - 1].trackRef + '-panning" max="100" min="0" value="50"></td><td class="track-detune"><input type="range" id="' + tracks.track[tracks.trackCount - 1].trackRef + '-detune" max="100" min="0" value="50"></td></td></tr>');
+							$('.table-track-controller tbody').append('<tr class="' + tracks.track[tracks.trackCount - 1].trackRef + '-controller"><td class="trackname"><span class="fa-stack play" id='+ tracks.track[tracks.trackCount - 1].trackRef +'-play"><i class="fa fa-circle fa-stack-2x" aria-hidden="true"></i><i class="fa fa-play fa-inverse fa-stack-1x" aria-hidden="true"></i></span> ' + tracks.track[tracks.trackCount - 1].name + '<td class="track-volume"><input type="range" id="' + tracks.track[tracks.trackCount - 1].trackRef + '-volume" max="100" min="0" value="100"></td><td class="track-panning"><input type="range" id="' + tracks.track[tracks.trackCount - 1].trackRef + '-panning" max="100" min="0" value="50"></td><td class="track-detune"><input type="range" id="' + tracks.track[tracks.trackCount - 1].trackRef + '-detune" max="100" min="0" value="50"></td></td></tr>');
 						}
 						$('#fileInput').val('');
 					}
@@ -189,4 +233,19 @@ $(document).ready(function(){
 		if($('#play-btn').hasClass('active')) $('#play-btn').removeClass('active');
 		if($('#pause-btn').hasClass('active')) $('#pause-btn').removeClass('active');
 	});
+
+	$('.play').click(function(){
+		var regexp = /track\d/;
+		var track = tracks.getByRef($(this).attr('id').match(regexp)[0]);
+		if(track.obj != null){
+			if($('#' + track.trackRef + '-play > .fa-play').hasClass('fa-play')){
+				$('#' + track.trackRef + '-play > .fa-play').removeClass('fa-play').addClass('fa-pause');
+				track.obj.play();
+				console.log(track.obj);
+			}else{
+				$('#' + track.trackRef + '-play > .fa-pause').removeClass('fa-pause').addClass('fa-play');
+				track.obj.stop();
+			}
+		}
+	})
 });
