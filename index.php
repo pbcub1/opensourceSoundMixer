@@ -121,7 +121,7 @@
 					</tr>
 				</tbody>
 			</table>
-			<table class="table table-striped table-track-manager">
+			<table class="table table-striped table-track-controller">
 				<thead>
 					<tr>
 						<th>Track ID</th>

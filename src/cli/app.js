@@ -139,7 +139,24 @@ $(document).ready(function(){
 		        },
 
 				complete: function( xhr, status){
-					console.log(xhr.responseText);
+					var response = JSON.parse(xhr.responseText);
+					if( response.error == false ){
+						if(tracks.trackCount == 1 && tracks.track[0].url == null){
+							tracks.track[0].url = response.url;
+							$('#track1-URL').empty();
+							$('#track1-URL').append(response.url);
+						}else {
+							tracks.trackCount += 1;
+							tracks.track[ tracks.trackCount - 1 ] = {
+								name: "track-" + tracks.trackCount,
+								url: response.url,
+								trackRef: "track" + tracks.trackCount
+							}
+
+							$('.table-track-manager tbody').append('<tr><td><input class="form-control" type="text" name="' + tracks.track[ tracks.trackCount - 1 ].name + '" value="' + tracks.track[tracks.trackCount - 1].name + '"></td><td class="inactive" id="track' + tracks.trackCount + '-URL">' + response.url + '</td></tr>');
+						}
+						$('#fileInput').val('');
+					}
 				}
 		    });
 		}
