@@ -15,6 +15,30 @@ $(document).ready(function(){
 			trackRef: 'track1',
 			obj: null,
 		},],
+		stopped: true,
+		playing: false,
+		master: null,
+		//This mashes all the tracks into the master track. For when you are about done.
+		mash: function(){
+			this.master = new Wad.Poly({
+				env: {
+					hold: 10000000
+				},
+				panning: 0,
+				volume: 1,
+				detune: 0,
+				recConfig: {
+					workerPath: 'src/cli/recorderWorker.js',
+					type: 'audio/mpeg'
+				}
+			});
+
+			for(i=0; i < this.trackCount; i++){
+				this.master.add(this.track[i].obj);
+			}
+		},
+
+		//Grabs the reference number based off of the tracks reference name.
 		getByRef: function( ref ){
 			for(i = 0; i < this.trackCount; i++){
 				if(this.track[i].trackRef == ref){
@@ -84,6 +108,7 @@ $(document).ready(function(){
 						panning: 0,
 						loop: false,
 						env: {
+							//This is an arbitrary number, because I doubt any music is 166,666 minutes.
 							hold: 10000000
 						}
 					})
@@ -211,6 +236,7 @@ $(document).ready(function(){
 		}
 	});
 
+	//Imports song from URL
 	$("#import-submit").click(function(){
 		readImportData();
 	});
@@ -222,21 +248,69 @@ $(document).ready(function(){
 		}
 	});
 
+	//Plays Master Track
 	$('#play-btn').click(function(){
 		$('#play-btn').addClass('active');
 		if($('#pause-btn').hasClass('active')) $('#pause-btn').removeClass('active');
+		for(i=0;i<tracks.trackCount; i++){
+			if(tracks.track[i].obj != null){
+				tracks.track[i].obj.stop();
+			}
+		}
+		if(tracks.stopped == true){
+			tracks.mash();
+			tracks.master.play();
+			tracks.stopped = false;
+			tracks.playing = true;
+		}else if(tracks.playing != true){
+			tracks.master.play();
+			tracks.playing = true;
+			tracks.stopped = false;
+		}
 	});
 
+	//Pauses Master Track
 	$('#pause-btn').click(function(){
-		$('#pause-btn').addClass('active');
 		if($('#play-btn').hasClass('active')) $('#play-btn').removeClass('active');
+		if(tracks.stopped == false && tracks.playing == true){
+			tracks.master.stop();
+			tracks.playing = false;
+			$('#pause-btn').addClass('active');
+		}
+		tracks.master.stop();
 	});
 
+	//Stops Master Track
 	$('#stop-btn').click(function(){
 		if($('#play-btn').hasClass('active')) $('#play-btn').removeClass('active');
 		if($('#pause-btn').hasClass('active')) $('#pause-btn').removeClass('active');
+		tracks.master.stop();
+		tracks.playing = false;
+		tracks.stopped = true;
 	});
 
+	$('#random-btn').click(function(){
+		if(tracks.master != null){
+			tracks.master.stop();
+			tracks.playing = false;
+			tracks.stopped = true;
+		}
+		for(i=0;i<tracks.trackCount; i++){
+			if(tracks.track[i].obj != null){
+				tracks.track[i].obj.stop();
+			}
+		}
+		for(i = 0; i < tracks.trackCount; i++){
+			$('#' + tracks.track[i].trackRef + '-volume').val(Math.floor(Math.random() * 100));
+			$('#' + tracks.track[i].trackRef + '-volume').trigger('change');
+			$('#' + tracks.track[i].trackRef + '-panning').val(Math.floor(Math.random() * 100));
+			$('#' + tracks.track[i].trackRef + '-panning').trigger('change');
+			$('#' + tracks.track[i].trackRef + '-detune').val(Math.floor(Math.random() * 100));
+			$('#' + tracks.track[i].trackRef + '-detune').trigger('change');
+		}
+	});
+
+	//Play button in track manager plays individual tracks.
 	$('.play').click(function(){
 		var regexp = /track\d/;
 		var trackNum = tracks.getByRef($(this).attr('id').match(regexp)[0]);
@@ -251,11 +325,13 @@ $(document).ready(function(){
 		}
 	});
 
+	//When there is a control changed, change to proper value in the track.
 	$('.track-control').on("change", function(){
 		var regexp = /track\d/;
 		var controlReg = /volume|panning|detune/;
 		var trackNum = tracks.getByRef($(this).children().attr('id').match(regexp));
 		var value = $('#' + $(this).children().attr('id')).val();
+		console.log("I'm running");
 		if( tracks.track[trackNum].obj != null){
 			if($(this).children().attr('id').match(controlReg) == "volume"){
 				tracks.track[trackNum].obj.setVolume(value/100);
