@@ -61,7 +61,8 @@ $(document).ready(function(){
 					trackRef: "track" + tracks.trackCount
 				}
 
-				$('.table-track-manager tbody').append('<tr><td><input class="form-control" type="text" name="' + tracks.track[ tracks.trackCount - 1 ].name + '" value="' + tracks.track[tracks.trackCount - 1].name + '"></td><td class="inactive" id="track' + tracks.trackCount + '-URL">' + url + '</td></tr>');
+				$('.table-track-manager tbody').append('<tr><td><input class="form-control" type="text" name="' + tracks.track[ tracks.trackCount - 1 ].name + '" value="' + tracks.track[tracks.trackCount - 1].name + '"></td><td class="inactive" id="track' + tracks.trackCount + '-URL">' + tracks.track[tracks.trackCount - 1].url + '</td></tr>');
+				$('.table-track-controller tbody').append('<tr class="' + tracks.track[tracks.trackCount - 1].trackRef + '-controller"><td class="trackname"><span class="fa-stack" id="track-play"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-play fa-inverse fa-stack-1x" aria-hidden="true"></i></span> ' + tracks.track[tracks.trackCount - 1].name + '<td class="track-volume"><input type="range" id="' + tracks.track[tracks.trackCount - 1].trackRef + '-volume" max="100" min="0" value="100"></td><td class="track-panning"><input type="range" id="' + tracks.track[tracks.trackCount - 1].trackRef + '-panning" max="100" min="0" value="50"></td><td class="track-detune"><input type="range" id="' + tracks.track[tracks.trackCount - 1].trackRef + '-detune" max="100" min="0" value="50"></td></td></tr>');
 			}
 			$('#url').val('');
 		}else{
@@ -154,6 +155,7 @@ $(document).ready(function(){
 							}
 
 							$('.table-track-manager tbody').append('<tr><td><input class="form-control" type="text" name="' + tracks.track[ tracks.trackCount - 1 ].name + '" value="' + tracks.track[tracks.trackCount - 1].name + '"></td><td class="inactive" id="track' + tracks.trackCount + '-URL">' + response.url + '</td></tr>');
+							$('.table-track-controller tbody').append('<tr class="' + tracks.track[tracks.trackCount - 1].trackRef + '-controller"><td class="trackname"><span class="fa-stack" id="track-play"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-play fa-inverse fa-stack-1x" aria-hidden="true"></i></span> ' + tracks.track[tracks.trackCount - 1].name + '<td class="track-volume"><input type="range" id="' + tracks.track[tracks.trackCount - 1].trackRef + '-volume" max="100" min="0" value="100"></td><td class="track-panning"><input type="range" id="' + tracks.track[tracks.trackCount - 1].trackRef + '-panning" max="100" min="0" value="50"></td><td class="track-detune"><input type="range" id="' + tracks.track[tracks.trackCount - 1].trackRef + '-detune" max="100" min="0" value="50"></td></td></tr>');
 						}
 						$('#fileInput').val('');
 					}
