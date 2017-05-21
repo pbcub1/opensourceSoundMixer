@@ -116,12 +116,12 @@
 				</thead>
 				<tbody>
 					<tr>
-						<td><input class="form-control" type="text" name="track-1" value="track-1"></td>
+						<td><input class="form-control track-mger-name" type="text" name="track-1" id="track1-name" value="track-1"></td>
 						<td class="inactive" id="track1-URL">Nothing Yet - Import or upload file</td>
 					</tr>
 				</tbody>
 			</table>
-			<table class="table table-striped table-track-manager">
+			<table class="table table-striped table-track-controller">
 				<thead>
 					<tr>
 						<th>Track ID</th>
@@ -132,10 +132,10 @@
 				</thead>
 				<tbody>
 					<tr class="track1-controller">
-						<td class="track-name"><span class="fa-stack" id="track-play"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-play fa-inverse fa-stack-1x" aria-hidden="true"></i></span> track-1</td>
-						<td class="track-volume"><input type="range" id="track1-volume" max="100" min="0" value="100"></td>
-						<td class="track-panning"><input type="range" id="track1-panning" max="100" min="0" value="50"></td>
-						<td class="track-detune"><input type="range" id="track1-volume" max="100" min="0" value="50"></td>
+						<td class="track-name"><span class="fa-stack play" id="track1-play"><i class="fa fa-circle fa-stack-2x" aria-hidden="true"></i><i class="fa fa-play fa-inverse fa-stack-1x" aria-hidden="true"></i></span> track-1</td>
+						<td class="track-control track-volume"><input type="range" id="track1-volume" max="100" min="0" value="100"></td>
+						<td class="track-control track-panning"><input type="range" id="track1-panning" max="100" min="0" value="50"></td>
+						<td class="track-control track-detune"><input type="range" id="track1-detune" max="100" min="0" value="50"></td>
 					</tr>
 				</tbody>
 			</table>
