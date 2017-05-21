@@ -30,7 +30,7 @@ $(document).ready(function(){
 				recConfig: {
 					workerPath: 'src/cli/recorderWorker.js',
 					type: 'audio/mpeg'
-				}
+				},
 			});
 
 			for(i=0; i < this.trackCount; i++){
@@ -158,7 +158,6 @@ $(document).ready(function(){
 		var file = $("#fileInput").prop('files')[0];
 	    if (file.size > 10000000 || (file.type != "audio/mp3" && file.type != "audio/mpeg" && file.type != "audio/wav" && file.type != "audio/ogg")) {
 	        alert('Max upload size is 10MB and must be of type mp3, wav, or ogg.');
-			console.log(file.type + ' ' + file.size);
 	    }else{
 			$.ajax({
 		        // Your server script to process the upload
@@ -227,7 +226,7 @@ $(document).ready(function(){
 							}
 
 							$('.table-track-manager tbody').append('<tr><td><input class="form-control" type="text" name="' + tracks.track[ tracks.trackCount - 1 ].name + '" value="' + tracks.track[tracks.trackCount - 1].name + '"></td><td class="inactive" id="track' + tracks.trackCount + '-URL">' + response.url + '</td></tr>');
-							$('.table-track-controller tbody').append('<tr class="' + tracks.track[tracks.trackCount - 1].trackRef + '-controller"><td class="track-name"><span class="fa-stack play" id='+ tracks.track[tracks.trackCount - 1].trackRef +'-play"><i class="fa fa-circle fa-stack-2x" aria-hidden="true"></i><i class="fa fa-play fa-inverse fa-stack-1x" aria-hidden="true"></i></span> ' + tracks.track[tracks.trackCount - 1].name + '<td class="track-control track-volume"><input type="range" id="' + tracks.track[tracks.trackCount - 1].trackRef + '-volume" max="100" min="0" value="100"></td><td class="track-control track-panning"><input type="range" id="' + tracks.track[tracks.trackCount - 1].trackRef + '-panning" max="100" min="0" value="50"></td><td class="track-control track-detune"><input type="range" id="' + tracks.track[tracks.trackCount - 1].trackRef + '-detune" max="100" min="0" value="50"></td></td></tr>');
+							$('.table-track-controller tbody').append('<tr class="' + tracks.track[tracks.trackCount - 1].trackRef + '-controller"><td class="track-name"><span class="fa-stack play" id="'+ tracks.track[tracks.trackCount - 1].trackRef +'-play"><i class="fa fa-circle fa-stack-2x" aria-hidden="true"></i><i class="fa fa-play fa-inverse fa-stack-1x" aria-hidden="true"></i></span> ' + tracks.track[tracks.trackCount - 1].name + '<td class="track-control track-volume"><input type="range" id="' + tracks.track[tracks.trackCount - 1].trackRef + '-volume" max="100" min="0" value="100"></td><td class="track-control track-panning"><input type="range" id="' + tracks.track[tracks.trackCount - 1].trackRef + '-panning" max="100" min="0" value="50"></td><td class="track-control track-detune"><input type="range" id="' + tracks.track[tracks.trackCount - 1].trackRef + '-detune" max="100" min="0" value="50"></td></td></tr>');
 						}
 						$('#fileInput').val('');
 					}
@@ -310,8 +309,48 @@ $(document).ready(function(){
 		}
 	});
 
+	$('#download').click(function(){
+		for(i=0;i<tracks.trackCount; i++){
+			// if(tracks.track[i].obj != null){
+			// 	tracks.track[i].obj.stop();
+			// }
+		}
+		if(tracks.master != null){
+			if(tracks.stopped == true) {
+				tracks.master.stop();
+				tracks.playing = false;
+				tracks.stopped = true;
+			}
+			tracks.mash();
+			tracks.master.rec.record();
+			tracks.master.play();
+			console.log(tracks.master);
+			setTimeout(function(){
+				tracks.master.stop();
+				tracks.master.rec.stop();
+				tracks.master.rec.createWad();
+				tracks.master.rec.exportWAV(function(blob){
+					Recorder.forceDownload(blob);
+				});
+			}, 120000);
+		}else{
+			tracks.mash();
+			tracks.master.rec.record();
+			tracks.master.play();
+			console.log(tracks.master);
+			setTimeout(function(){
+				tracks.master.stop();
+				tracks.master.rec.stop();
+				tracks.master.rec.createWad();
+				tracks.master.rec.exportWAV(function(blob){
+					Recorder.forceDownload(blob);
+				});
+			}, 120000);
+		}
+	});
+
 	//Play button in track manager plays individual tracks.
-	$('.play').click(function(){
+	$(document).on('click', 'span.play', function(){
 		var regexp = /track\d/;
 		var trackNum = tracks.getByRef($(this).attr('id').match(regexp)[0]);
 		if(tracks.track[trackNum].obj != null){
@@ -325,13 +364,23 @@ $(document).ready(function(){
 		}
 	});
 
+	$(document).on('change', '.track-mger-name', function(){
+		var regexp = /track\d/;
+		var regexp2 = /track-\d/;
+		var trackNum = tracks.getByRef($(this).attr('id').match(regexp));
+		var value = $(this).val();
+		var newHTML = $('.'+tracks.track[trackNum].trackRef+'-controller > .track-name').html().replace(regexp2, value);
+		$('.'+tracks.track[trackNum].trackRef+'-controller > .track-name').empty().append(newHTML);
+		tracks.track[trackNum].name = value;
+		$()
+	})
+
 	//When there is a control changed, change to proper value in the track.
 	$('.track-control').on("change", function(){
 		var regexp = /track\d/;
 		var controlReg = /volume|panning|detune/;
 		var trackNum = tracks.getByRef($(this).children().attr('id').match(regexp));
 		var value = $('#' + $(this).children().attr('id')).val();
-		console.log("I'm running");
 		if( tracks.track[trackNum].obj != null){
 			if($(this).children().attr('id').match(controlReg) == "volume"){
 				tracks.track[trackNum].obj.setVolume(value/100);

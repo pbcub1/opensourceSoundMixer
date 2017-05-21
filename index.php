@@ -116,7 +116,7 @@
 				</thead>
 				<tbody>
 					<tr>
-						<td><input class="form-control" type="text" name="track-1" value="track-1"></td>
+						<td><input class="form-control track-mger-name" type="text" name="track-1" id="track1-name" value="track-1"></td>
 						<td class="inactive" id="track1-URL">Nothing Yet - Import or upload file</td>
 					</tr>
 				</tbody>
