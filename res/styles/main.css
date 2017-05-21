@@ -82,14 +82,14 @@ body {
 	to {color:#FFFFFF;}
 }
 
-#track-play .fa-play {
+.play .fa-play, .play .fa-pause {
 	color: #FFFFFF;
 	animation-name: trackControlsHover-x;
 	animation-duration: 1s;
 	animation-timing-function: ease-in-out;
 }
 
-#track-play .fa-play:hover {
+.play .fa-play:hover, .play .fa-pause:hover {
 	animation-name: trackControlsHover;
 	animation-duration: 1s;
 	animation-timing-function: ease-in-out;
