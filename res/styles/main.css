@@ -2,6 +2,24 @@ body {
 	padding-bottom: 70px;
 }
 
+.logo{
+	height: 100%;
+	display:inline;
+}
+
+.navbar-default .navbar-brand {
+	color: #EBD547;
+	display:inline;
+}
+
+.navbar-default .navbar-brand:hover{
+	color: #EBD547;
+}
+
+.navbar-brand {
+	font-family: impact;
+}
+
 .centered {
 	margin: auto;
 }

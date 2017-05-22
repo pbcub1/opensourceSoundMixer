@@ -26,12 +26,11 @@
 				        <span class="icon-bar"></span>
 				        <span class="icon-bar"></span>
 			      	</button>
-					<a href="#" class="navbar-brand">Sound App</a>
+					<a href="#" class="navbar-brand"><img src="res/img/logo.jpg" class="logo" alt="Blondbird Logo"></a><a href="#" class="navbar-brand">Blondbird Sound App</a>
 				</div>
 				<div class="collapse navbar-collapse" id="main-nav">
 					<ul class="nav navbar-nav">
 						<li><a href="#">Our Company</a></li>
-						<li><a href="#">Our Products</a></li>
 					</ul>
 				</div>
 			</div>
@@ -151,7 +150,7 @@
 		<!--Footer navbar-->
 		<div class="navbar navbar-default navbar-fixed-bottom">
 			<div class="container">
-				<p>Copyright 2017 &copy; Your Company Here</p>
+				<p>Copyright 2017 &copy; Blondbird</p>
 			</div>
 		</div>
 
